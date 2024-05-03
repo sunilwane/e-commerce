@@ -10,8 +10,6 @@ import HomeIcon from "@mui/icons-material/Home";
 import Maincontainer from "./Maincontainer";
 import Cart from "./Cart";
 export default function Navbar() {
-  const [cart, setCart] = useState(false);
-  const [container, setContainer] = useState(true);
   let userdata1 = JSON.parse(localStorage.getItem("userdata")) || [];
   const [data, setData] = useState(userdata1.length);
   useEffect(() => {
@@ -26,8 +24,15 @@ export default function Navbar() {
     });
   };
   const handlecart = () => {
-    setContainer(!container);
-    setCart(!cart);
+    // setContainer(!container);
+    // setCart(!cart);
+    history("/maincontainer");
+  };
+
+  const handlecart2 = () => {
+    // setContainer(!container);
+    // setCart(!cart);
+    history("/cart");
   };
 
   return (
@@ -61,7 +66,7 @@ export default function Navbar() {
           <li>
             <LocalPostOfficeIcon /> Contact
           </li>
-          <li onClick={handlecart}>
+          <li onClick={handlecart2}>
             <span className="cartitemdata">
               {" "}
               <ShoppingCartIcon />
@@ -70,11 +75,9 @@ export default function Navbar() {
             Cart
           </li>
 
-          <button onClick={handlechange}>Sign out</button>
+          {/* <button onClick={handlechange}>Sign out</button> */}
         </ul>
       </nav>
-      {container && <Maincontainer />}
-      {cart && <Cart />}
     </div>
   );
 }

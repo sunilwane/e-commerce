@@ -1,0 +1,25 @@
+.cardpage {
+  display: flex;
+  margin: 10px;
+  padding: 10px;
+}
+
+.part1img {
+  margin: 20px;
+  padding: 10px;
+}
+.part2details {
+  margin: 20px;
+  padding: 20px;
+  text-align: start;
+  margin-left: 5%;
+}
+.part2details button {
+  /* margin-left: 20%; */
+  gap: 10px;
+  margin-top: 5%;
+}
+.detailbtn {
+  display: flex;
+  gap: 10px;
+}
