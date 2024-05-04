@@ -46,12 +46,18 @@ export default function Details2(props) {
           <h2>Publisher - {store[id].publisher}</h2>
           {/* <p>Release Date - {store[id].releasedate.$date}</p> */}
           <h1>Title - {store[id].title}</h1>
+          <h4 style={{ color: "red" }}>Price - {store[id].price}</h4>
           <div className="detailbtn">
-            <Link to="/maincontainer">
-              {" "}
-              <button className="btn btn-danger mt-3">cancel</button>
+            <Link to="/">
+              <button className="btn btn-danger " style={{ marginTop: "65%" }}>
+                cancel
+              </button>
             </Link>
-            <button className="btn btn-success">buy Now</button>
+            <Link to={`/payment2/${id}`}>
+              <button className="btn btn-success" style={{ marginTop: "50%" }}>
+                buy Now
+              </button>
+            </Link>
           </div>
         </div>
       </div>

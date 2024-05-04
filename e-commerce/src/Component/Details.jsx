@@ -16,10 +16,6 @@ export default function Details(props) {
       });
   };
 
-  if (productdata[id].productgroup === "Book") {
-    console.log("inside function");
-    setStore(bookslist);
-  }
   // const getdata = async () => {
   //   const tempa = await getdataurl(
   //     `https://dbioz2ek0e.execute-api.ap-south-1.amazonaws.com/mockapi/get-tech-products/${id}`
@@ -48,14 +44,18 @@ export default function Details(props) {
           <h6>Genre - {store[id].genre ? store[id].genre : null}</h6>
 
           <h2>Publisher - {store[id].publisher}</h2>
-          <p>Release Date - {store[id].releasedate.$date}</p>
+          {/* <p>Release Date - {store[id].releasedate.$date}</p> */}
           <h1>Title - {store[id].title}</h1>
+          <h4 style={{ color: "red" }}>Price - {store[id].price}</h4>
           <div className="detailbtn">
-            <Link to="/maincontainer">
-              {" "}
-              <button className="btn btn-danger mt-3">cancel</button>
+            <Link to="/">
+              <button className="btn btn-danger " style={{ marginTop: "65%" }}>
+                cancel
+              </button>
             </Link>
-            <button className="btn btn-success">buy Now</button>
+            <Link to={`/payment/${id}`}>
+              <button className="btn btn-success">buy Now</button>
+            </Link>
           </div>
         </div>
       </div>
