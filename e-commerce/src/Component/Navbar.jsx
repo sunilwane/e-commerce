@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { database } from "./FirebaseConfig";
 import { signOut } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./home.css";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LocalPostOfficeIcon from "@mui/icons-material/LocalPostOffice";
@@ -9,6 +9,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import HomeIcon from "@mui/icons-material/Home";
 import Maincontainer from "./Maincontainer";
 import Cart from "./Cart";
+import Navmiddle from "./compo/Navmiddle";
 export default function Navbar() {
   let userdata1 = JSON.parse(localStorage.getItem("userdata")) || [];
   const [data, setData] = useState(userdata1.length);
@@ -29,55 +30,54 @@ export default function Navbar() {
     history("/maincontainer");
   };
 
-  const handlecart2 = () => {
-    // setContainer(!container);
-    // setCart(!cart);
-    history("/cart");
-  };
-
   return (
-    <div>
-      <nav>
-        <h1>e-commerce</h1>
-        <div className="  mt-3">
-          <form className="d-flex" role="search">
-            <input
-              className="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            {/* <button className="btn btn-outline-success" type="submit">
+    <>
+      <div>
+        <nav>
+          <h4 style={{ color: "#303030", padding: "10px" }}>
+            ShopEasy And E-nalanda
+          </h4>
+          <div className="  mt-3">
+            <form className="d-flex" role="search">
+              <input
+                className="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              {/* <button className="btn btn-outline-success" type="submit">
               Search
             </button> */}
-            <button type="submit" class="btn btn-success">
-              Search
-            </button>
-          </form>
-        </div>
-        <ul>
-          <li onClick={handlecart}>
-            <HomeIcon /> Home
-          </li>
-          <li>
-            {" "}
-            <InfoIcon /> About
-          </li>
-          <li>
-            <LocalPostOfficeIcon /> Contact
-          </li>
-          <li onClick={handlecart2}>
-            <span className="cartitemdata">
+              <button type="submit" class="btn btn-success">
+                Search
+              </button>
+            </form>
+          </div>
+          <ul>
+            <li onClick={handlecart}>
+              <HomeIcon /> Home
+            </li>
+            <li>
               {" "}
-              <ShoppingCartIcon />
-              <span className="actualdata"> {data}</span>
-            </span>{" "}
-            Cart
-          </li>
+              <InfoIcon /> About
+            </li>
+            <li>
+              <Link to="/contactpage" className="contacttext">
+                <LocalPostOfficeIcon /> Contact
+              </Link>
+            </li>
+            <li>
+              <Link to="/cartpage" className="contacttext">
+                <ShoppingCartIcon />
+                {/* <span className="actualdata"> {data}</span> */}
+                Cart
+              </Link>
+            </li>
 
-          {/* <button onClick={handlechange}>Sign out</button> */}
-        </ul>
-      </nav>
-    </div>
+            {/* <button onClick={handlechange}>Sign out</button> */}
+          </ul>
+        </nav>
+      </div>
+    </>
   );
 }

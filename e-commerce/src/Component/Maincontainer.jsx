@@ -3,11 +3,15 @@ import Format from "./Format.jsx/Format";
 import productdata from "./image/products.json";
 import bookslist from "./image/book4.json";
 import "./Maincontainer.css";
-import { Link } from "react-router-dom";
+import { Link, json } from "react-router-dom";
 import Details from "./Details";
 export default function Maincontainer() {
   const [mydata, setMydata] = useState([]);
   const [page, setPage] = useState(100);
+  const [localstoragedata, setLocalstoragedata] = useState(() => {
+    const savedItems = localStorage.getItem("cartData");
+    return savedItems ? JSON.parse(savedItems) : [];
+  });
   const getdata = (url) => {
     return fetch(url)
       .then((res) => res.json())
@@ -38,13 +42,17 @@ export default function Maincontainer() {
     setDatatemp(!datatemp);
     setStore(datatemp ? bookslist : productdata);
   };
-  // setStore(productdata);
-
+  useEffect(() => {
+    localStorage.setItem("cartData", JSON.stringify(localstoragedata));
+  }, [localstoragedata]);
+  const handlecartdata = (curr) => {
+    setLocalstoragedata([...localstoragedata, curr]);
+  };
   return (
     <>
       <div className="mainpagevalue">
         <button
-          className=" booklist"
+          className=" booklist  "
           style={{ marginRight: "3%" }}
           onClick={handlebooks}
         >
@@ -75,14 +83,20 @@ export default function Maincontainer() {
                 backgroundColor: "#f5f5f5",
               }}
             >
-              <h3>{curr.brand}</h3>
-              <img src={curr.images.medium.url} alt="" />
-              <p>{curr.productgroup}</p>
-              <h5>{curr.title}</h5>
-              <h4> price- {curr.price ? curr.price : 999}</h4>
+              {/* <h3>{curr.brand}</h3> */}
+              <div className="boxcontainer">
+                <img src={curr.images.medium.url} alt="" />
+                <div className="childboxcontainer">
+                  <p>{curr.productgroup}</p>
+                  <h5>{curr.title}</h5>
+                  <h4> price- {curr.price ? curr.price : 999}</h4>
+                </div>
+              </div>
 
               <div className="btncard">
-                <button className="addbtn">add cart</button>
+                <button onClick={() => handlecartdata(curr)} className="addbtn">
+                  add cart
+                </button>
                 <Link
                   to={datatemp ? `/details/${index}` : `/details2/${index}`}
                   storedata={datatemp}

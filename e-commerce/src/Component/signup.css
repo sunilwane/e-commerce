@@ -12,8 +12,8 @@ body {
 .cont {
   display: flex;
   flex-direction: row;
-  /* align-items: center;
-  text-align: center; */
+  align-items: center;
+  text-align: center;
   justify-content: center;
   margin: 80px;
   padding: 30px;
@@ -83,4 +83,9 @@ body {
 p {
   margin: 12px;
   padding: 6px;
+}
+
+.contacttext {
+  text-decoration: none;
+  color: #fff;
 }

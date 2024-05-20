@@ -23,3 +23,15 @@
   display: flex;
   gap: 10px;
 }
+.contactpage {
+  margin: 10px;
+  padding: 10px;
+  margin-top: 5%;
+  display: flex;
+}
+
+.cardcontact {
+  margin: 20px;
+  padding: 10px;
+  background-color: #f5f5f5;
+}

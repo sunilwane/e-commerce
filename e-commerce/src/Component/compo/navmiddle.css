@@ -1,0 +1,153 @@
+.imgmiddle {
+  width: 100vw;
+  height: 100vh;
+}
+.imgmiddle img {
+  width: 100vw;
+  height: 100vh;
+}
+
+.footer-main-container {
+  width: 100%;
+  height: 70vh;
+
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.footer-main-container .footer-part-1 {
+  width: 100%;
+  height: 35%;
+  padding: 10px;
+  background-color: #041e42;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;
+}
+.footer-part-1 input {
+  height: 5vh;
+  width: 20vw;
+}
+.footer-part-1 button {
+  height: 5vh;
+  width: 5vw;
+}
+.footer-part-1 h3 {
+  color: #f2f2f2;
+}
+.footer-part-1 span {
+  margin-left: 30px;
+  color: #f2f2f2;
+}
+
+.footer-main-container .footer-part-2 {
+  width: 100%;
+  height: 65%;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;
+}
+.footer-part-2 h5 span {
+  left: 30px;
+}
+.footer-part-2 .parttask-1 {
+  width: 30%;
+  text-align: start;
+  padding: 20px;
+}
+.parttask-2 ul {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+}
+.parttask-2 h6 {
+  margin-right: 40px;
+}
+.parttask-2 ul li {
+  text-align: start;
+  text-transform: capitalize;
+}
+
+.parttask-3 ul {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+}
+.parttask-3 ul li {
+  text-align: start;
+  text-transform: capitalize;
+}
+
+/* cart page css */
+
+.cartpage {
+  width: 100vw;
+  height: 100%;
+}
+.cartpage .table1 {
+  width: 90vw;
+  border: 1px solid black;
+  /* position: relative; */
+  margin-left: 5%;
+  margin-top: 3%;
+  height: 30%;
+}
+thead {
+  border: 1px solid black;
+}
+.mainpart {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  margin: 10px;
+}
+.applyfield {
+  width: 30%;
+  padding: 20px;
+  margin: 20px;
+  margin-left: 3%;
+  text-align: start;
+  height: 100%;
+  /* display: flex; */
+}
+.applyfield h5 {
+  margin: 10px;
+}
+.cartboxprice {
+  width: 40vw;
+  height: 100%;
+  text-align: start;
+  overflow: auto;
+  padding: 10px;
+  margin-right: 40px;
+  margin-top: 60px;
+  padding: 10px;
+  border: 1px solid rgb(158, 157, 157);
+}
+.tablecartbox table {
+  border: 1px solid black;
+  width: 100%;
+  padding: 10px;
+}
+.pricetablecart {
+  width: 80%;
+  border: 1px solid black;
+  padding: 10px;
+}
+.pricetablecart tr,
+th,
+td {
+  padding: 25px;
+  margin: 20px;
+}
+
+.pricetablecart,
+.tbodydata {
+  height: 20px;
+}
+.pricetablecart td {
+  text-align: center;
+}
