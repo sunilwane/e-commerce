@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from "react";
 import Format from "./Format.jsx/Format";
 import productdata from "./image/products.json";
-import bookslist from "./image/book4.json";
+import imagebook from "../images/books-7479152_1280.png";
+import videoimage from "../images/video01.png";
+import bookslist from "./image/Booklistfinal.json";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faShoppingCart,
+  faCartShopping,
+  faFilter,
+} from "@fortawesome/free-solid-svg-icons";
 import "./Maincontainer.css";
 import { Link, json } from "react-router-dom";
+import CurrencyRupeeTwoToneIcon from "@mui/icons-material/CurrencyRupeeTwoTone";
+import Swal from "sweetalert2";
 import Details from "./Details";
 export default function Maincontainer() {
   const [mydata, setMydata] = useState([]);
@@ -27,17 +37,16 @@ export default function Maincontainer() {
   }, []);
   const data = async () => {
     let fetchdata = await getdata(
-      "https://dbioz2ek0e.execute-api.ap-south-1.amazonaws.com/mockapi/get-tech-products"
+      `https://dbioz2ek0e.execute-api.ap-south-1.amazonaws.com/mockapi/get-tech-products?id=10`
     );
 
     // console.log(fetchdata, "   fetch data");
     setMydata(fetchdata.data);
-    console.log(mydata);
   };
-  console.log(productdata + "data ");
+
   const [datatemp, setDatatemp] = useState(false);
   const [store, setStore] = useState(datatemp ? productdata : bookslist);
-
+  const [show, setShow] = useState(false);
   const handlebooks = () => {
     setDatatemp(!datatemp);
     setStore(datatemp ? bookslist : productdata);
@@ -46,34 +55,104 @@ export default function Maincontainer() {
     localStorage.setItem("cartData", JSON.stringify(localstoragedata));
   }, [localstoragedata]);
   const handlecartdata = (curr) => {
-    setLocalstoragedata([...localstoragedata, curr]);
+    const checkout = localstoragedata.filter((val) => {
+      return val._id.$oid !== curr._id.$oid ? false : true;
+    });
+    curr["count"] = 1;
+    if (checkout) {
+      setLocalstoragedata([...localstoragedata, curr]);
+      Swal.fire({
+        title: "Success!",
+        text: ` has been added to your cart.`,
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+    } else {
+      Swal.fire({
+        title: "Fail!",
+        text: ` has been nto to your cart.`,
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+    }
   };
+
+  const [fromdataExtract, setDataExtract] = useState(21);
+  const [todataextract, setTodataExtract] = useState(0);
+
+  const [pagenumber, setPageNumber] = useState(1);
+
+  const handledcrement = () => {
+    setDataExtract(fromdataExtract - 21);
+    setTodataExtract(todataextract - 21);
+    setPageNumber(pagenumber - 1);
+  };
+
+  const handleincrement = () => {
+    setDataExtract(fromdataExtract + 21);
+    setTodataExtract(todataextract + 21);
+    setPageNumber(pagenumber + 1);
+    console.log(todataextract, fromdataExtract);
+  };
+
+  useEffect(() => {}, [pagenumber]);
+  const limitedData = store.slice(todataextract, fromdataExtract);
+  console.log(limitedData, " limited data");
+
   return (
     <>
       <div className="mainpagevalue">
-        <button
-          className=" booklist  "
-          style={{ marginRight: "3%" }}
-          onClick={handlebooks}
-        >
-          {datatemp ? "Books List" : "Video Game"}
-        </button>
-        <div className="containe mt-4">
-          {/* <button onClick={handlechange}>filter by books</button> */}
-          {/* {mydata.map((data) => (
-          <Format
-            structure={true}
-            key={data.id}
-            id={data.id}
-            brand={data.brand}
-            img={data.img}
-            details={data.details}
-            category={data.category}
-            price={data.price}
-          />
-        ))} */}
+        <div className="navvideogame">
+          <div className="demofeatured">
+            <button
+              className=" booklist  "
+              style={{ marginRight: "3%" }}
+              onClick={handlebooks}
+            >
+              {datatemp ? "Books List" : "Video Game"}
+            </button>
 
-          {store.map((curr, index) => (
+            <h1>Featured Products</h1>
+          </div>
+          <div className="demo2">
+            <div className="demo2-01">
+              <img src={videoimage} alt="" />
+              <div style={{ textAlign: "start", marginTop: "4%" }}>
+                <h3>Video Games</h3>
+                <span>
+                  <>1.Wide Selection of Games</> <br />
+                  <>1.Merchandise and Collectibles</> <br />
+                  <>1.Wide Selection of Games</> <br />
+                  <button
+                    className="btn btn-success"
+                    style={{ margin: "5px", padding: "5%" }}
+                  >
+                    Visit
+                  </button>
+                </span>
+              </div>
+            </div>
+            <div className="demo2-02">
+              <img src={imagebook} alt="" />
+              <div style={{ textAlign: "start", marginTop: "4%" }}>
+                <h3>Books</h3>
+                <span>
+                  <>1.Wide Selection of Games</> <br />
+                  <>1.Merchandise and Collectibles</> <br />
+                  <>1.Wide Selection of Games</> <br />
+                  <button
+                    className="btn btn-success"
+                    style={{ margin: "5px", padding: "5%" }}
+                  >
+                    Visit
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="containe mt-4">
+          {limitedData.map((curr, index) => (
             <div
               style={{
                 // border: "1px solid black",
@@ -88,15 +167,19 @@ export default function Maincontainer() {
                 <img src={curr.images.medium.url} alt="" />
                 <div className="childboxcontainer">
                   <p>{curr.productgroup}</p>
-                  <h5>{curr.title}</h5>
-                  <h4> price- {curr.price ? curr.price : 999}</h4>
+                  <b>{curr.title}</b>
+                  <h4 style={{ color: "#088178", marginTop: "20px" }}>
+                    <CurrencyRupeeTwoToneIcon />-{" "}
+                    {curr.price ? curr.price : 999}
+                  </h4>
                 </div>
               </div>
 
               <div className="btncard">
                 <button onClick={() => handlecartdata(curr)} className="addbtn">
-                  add cart
+                  <FontAwesomeIcon icon={faCartShopping} />
                 </button>
+
                 <Link
                   to={datatemp ? `/details/${index}` : `/details2/${index}`}
                   storedata={datatemp}
@@ -107,24 +190,32 @@ export default function Maincontainer() {
                     // dataall={curr}
                     // onClick={}
                   >
-                    Buy
+                    Buy Now
                   </button>
                 </Link>
               </div>
             </div>
           ))}
         </div>
-        {/* 
-          <div className="btn">
-            <button onClick={() => setPage(page + 100)}>increment</button>
-            <span> {page}</span>
-            <button
-              onClick={() => setPage(page - 100)}
-              style={{ marginLeft: "10px" }}
-            >
-              decrement
-            </button>
-          </div> */}
+
+        <div className="btn">
+          <button
+            onClick={handledcrement}
+            disabled={pagenumber <= 1 ? true : false}
+            className="paginationbtn"
+          >
+            Prev
+          </button>
+          {pagenumber}
+          <button
+            onClick={handleincrement}
+            style={{ marginLeft: "10px" }}
+            disabled={pagenumber < 8 ? false : true}
+            className="paginationbtn"
+          >
+            Next
+          </button>
+        </div>
       </div>
     </>
   );

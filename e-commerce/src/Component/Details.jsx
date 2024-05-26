@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import productdata from "./image/products.json";
+import React, { useEffect, useState } from "react";
+// import productdata from "./image/products.json";
+import productdata from "./image/Booklistfinal.json";
 import bookslist from "./image/book4.json";
 
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import "./Details.css";
 export default function Details(props) {
   const [store, setStore] = useState(productdata);
@@ -24,6 +25,22 @@ export default function Details(props) {
   //   console.log(temp, " data ");
   // };
   // getdata();
+
+  const navigate = useNavigate();
+  const [localstoragedata, setLocalstoragedata] = useState(() => {
+    const savedItems = localStorage.getItem("cartData");
+    return savedItems ? JSON.parse(savedItems) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("cartData", JSON.stringify(localstoragedata));
+  }, [localstoragedata]);
+  const handlebuybtn = (store) => {
+    const temp1 = store[id];
+    console.log(temp1);
+    setLocalstoragedata([...localstoragedata, temp1]);
+    navigate("/cartpage");
+  };
   return (
     <div style={{ marginTop: "5%" }}>
       {/* <h1>detail's page</h1> */}
@@ -53,9 +70,13 @@ export default function Details(props) {
                 cancel
               </button>
             </Link>
-            <Link to={`/payment/${id}`}>
-              <button className="btn btn-success">buy Now</button>
-            </Link>
+
+            <button
+              className="btn btn-success"
+              onClick={() => handlebuybtn(store)}
+            >
+              buy Now
+            </button>
           </div>
         </div>
       </div>

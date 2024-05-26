@@ -5,8 +5,9 @@ nav {
   position: fixed;
   top: 0;
   overflow: hidden;
-  width: 100vw;
+  width: 100%;
   color: #000;
+
   background-color: rgb(228, 137, 2);
   border-radius: 3px;
 }
@@ -21,7 +22,7 @@ ul {
   margin: 5px;
   padding: 5px;
 }
-ul li {
+nav ul li {
   margin: 5px 20px;
   text-decoration: none;
   margin-top: 2%;

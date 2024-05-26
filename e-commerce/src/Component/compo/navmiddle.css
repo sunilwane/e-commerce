@@ -1,10 +1,38 @@
 .imgmiddle {
   width: 100vw;
   height: 100vh;
+  /* position: relative; */
 }
 .imgmiddle img {
   width: 100vw;
   height: 100vh;
+}
+
+.card-img-overlay {
+  margin: 10px;
+  padding: 10px;
+}
+.card-title {
+  font-size: xx-large;
+  color: #fff;
+}
+.spantag {
+  color: rgb(255, 250, 245);
+}
+
+/* carousel items */
+
+.carousel-item {
+  position: relative;
+  /* display: inline-block; */
+}
+.carousel-item,
+.img123 {
+  opacity: 7;
+
+  filter: brightness(70%);
+  /* display: block; */
+  /* filter: contrast(80%); */
 }
 
 .footer-main-container {
@@ -68,6 +96,11 @@
 .parttask-2 ul li {
   text-align: start;
   text-transform: capitalize;
+  cursor: pointer;
+  font-size: medium;
+}
+.parttask-2 ul li:hover {
+  text-decoration: underline;
 }
 
 .parttask-3 ul {
@@ -78,8 +111,12 @@
 .parttask-3 ul li {
   text-align: start;
   text-transform: capitalize;
+  cursor: pointer;
+  font-size: medium;
 }
-
+.parttask-3 ul li:hover {
+  text-decoration: underline;
+}
 /* cart page css */
 
 .cartpage {
@@ -149,5 +186,42 @@ td {
   height: 20px;
 }
 .pricetablecart td {
+  text-align: center;
+}
+
+.quntitybtn {
+  width: 35px;
+  height: 35px;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  background-color: rgb(105, 103, 103);
+  color: white;
+  text-align: center;
+}
+.mad {
+  background-color: rgb(239, 82, 82);
+}
+.followsusbtn {
+  margin: 4px;
+  padding: 4px;
+}
+.followsusbtn ul {
+  display: inline-flex;
+  text-decoration: none;
+  margin: 3px;
+  padding-right: 2px;
+  padding: 3px;
+}
+.followsusbtn ul li {
+  text-decoration: none;
+  list-style: none;
+  cursor: pointer;
+  width: 35px;
+  /* margin-right: 2%; */
+  height: 35px;
+  border-radius: 50%;
+  /* background-color: black; */
+  /* color: #fff; */
   text-align: center;
 }

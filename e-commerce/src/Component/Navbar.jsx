@@ -15,7 +15,6 @@ export default function Navbar() {
   const [data, setData] = useState(userdata1.length);
   useEffect(() => {
     setData(userdata1.length);
-    console.log(Date.now());
   }, [userdata1]);
 
   const history = useNavigate();

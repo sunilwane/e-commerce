@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import productdata from "./image/products.json";
-import bookslist from "./image/book4.json";
+// import bookslist from "./image/book4.json";
+import bookslist from "./image/Booklistfinal.json";
 
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import "./Details.css";
 export default function Details2(props) {
   const [store, setStore] = useState(bookslist);
@@ -24,6 +25,22 @@ export default function Details2(props) {
   //   console.log(temp, " data ");
   // };
   // getdata();
+
+  const navigate = useNavigate();
+  const [localstoragedata, setLocalstoragedata] = useState(() => {
+    const savedItems = localStorage.getItem("cartData");
+    return savedItems ? JSON.parse(savedItems) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("cartData", JSON.stringify(localstoragedata));
+  }, [localstoragedata]);
+  const handlebuybtn = (store) => {
+    const temp1 = store[id];
+    console.log(temp1);
+    setLocalstoragedata([...localstoragedata, temp1]);
+    navigate("/cartpage");
+  };
   return (
     <div style={{ marginTop: "5%" }}>
       {/* <h1>detail's page</h1> */}
@@ -46,18 +63,21 @@ export default function Details2(props) {
           <h2>Publisher - {store[id].publisher}</h2>
           {/* <p>Release Date - {store[id].releasedate.$date}</p> */}
           <h1>Title - {store[id].title}</h1>
-          <h4 style={{ color: "red" }}>Price - {store[id].price}</h4>
+          <h4 style={{ color: "red" }}>Price - {store[id].price?store[id].price:999}</h4>
           <div className="detailbtn">
             <Link to="/">
               <button className="btn btn-danger " style={{ marginTop: "65%" }}>
                 cancel
               </button>
             </Link>
-            <Link to={`/payment2/${id}`}>
-              <button className="btn btn-success" style={{ marginTop: "50%" }}>
-                buy Now
-              </button>
-            </Link>
+
+            <button
+              className="btn btn-success"
+              // style={{ marginTop: "5%" }}
+              onClick={() => handlebuybtn(store)}
+            >
+              buy Now
+            </button>
           </div>
         </div>
       </div>

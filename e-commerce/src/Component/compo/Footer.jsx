@@ -1,5 +1,8 @@
 import React from "react";
-
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import YouTubeIcon from "@mui/icons-material/YouTube";
+import GitHubIcon from "@mui/icons-material/GitHub";
 export default function Footer() {
   return (
     <div>
@@ -38,6 +41,22 @@ export default function Footer() {
             </span>
             <br />
             <h5 className="mt-4">Follow us</h5>
+            <div className="followsusbtn">
+              <ul>
+                <li>
+                  <FacebookIcon />
+                </li>
+                <li>
+                  <InstagramIcon />
+                </li>
+                <li>
+                  <YouTubeIcon />
+                </li>
+                <li>
+                  <GitHubIcon />
+                </li>
+              </ul>
+            </div>
           </div>
           <div className="parttask-2">
             <h6>About</h6>

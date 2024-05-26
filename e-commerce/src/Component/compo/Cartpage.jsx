@@ -6,31 +6,48 @@ export default function Cartpage() {
     const savedItems = localStorage.getItem("cartData");
     return savedItems ? JSON.parse(savedItems) : [];
   });
-  const [totalprice, setTotalprice] = useState(0);
 
-  useEffect(() => {
-    const storetemp = store.reduce(
-      (previousValue, currentValue, currentIndex, array) => {
-        return previousValue + currentValue.price;
-      },
-      0
-    );
-    console.log(storetemp, "message");
-    setTotalprice(storetemp);
-  }, [store]);
-  console.log(totalprice, "total proce");
   useEffect(() => {
     localStorage.setItem("cartData", JSON.stringify(store));
   }, [store]);
-  console.log(store);
+
   const deleteItem = (itemToDelete) => {
     const updatedItems = store.filter((item, index) => index !== itemToDelete);
     setStore(updatedItems);
     localStorage.setItem("cartData", JSON.stringify(store));
   };
   const [count, setCount] = useState(1);
+  const handlecountbtn = (curr) => {
+    curr.count += 1;
+    // setCount(count);
+    setCount(curr.count);
+  };
+  const [totalprice, setTotalprice] = useState(0);
+
+  useEffect(() => {
+    const storetemp = store.reduce(
+      (previousValue, currentValue, currentIndex, array) => {
+        return (previousValue +=
+          (currentValue.price ? currentValue.price : 999) * currentValue.count);
+      },
+      0
+    );
+    // console.log(storetemp, "message");
+    setTotalprice(storetemp);
+  }, [count]);
+
+  const handlecountremovebtn = (curr, index) => {
+    curr.count -= 1;
+    console.log(curr.images.small.url);
+    setCount(curr.count);
+  };
+
+  // useEffect(() => {}, [count]);
+  // useEffect((loca) => {}, [curr.count]);
+
   return (
     <div className="cartpage">
+      <h1 className="mt-4">Shopping Cart</h1>
       <table className="table1">
         <thead>
           <tr>
@@ -49,27 +66,43 @@ export default function Cartpage() {
               <th scope="row">{index + 1}</th>
               <td>
                 {" "}
-                <button onClick={() => deleteItem(index)}>
+                <button
+                  onClick={() => deleteItem(index)}
+                  className="quntitybtn"
+                  style={{ backgroundColor: "red" }}
+                >
                   <HighlightOffIcon />
                 </button>
               </td>
               <td>
-                <img src={curr.images} alt="" />
+                <img
+                  src={curr.images.small.url}
+                  // style={{ width: "150px", height: "150px" }}
+                  alt=""
+                />
               </td>
               <td>{curr.title}</td>
-              <td>{curr.price}</td>
+              <td>{curr.price ? curr.price : 999}</td>
               <td>
                 <button
-                  disabled={count <= 1 ? true : false}
-                  onClick={() => setCount(count - 1)}
+                  disabled={curr.count <= 1 ? true : false}
+                  onClick={() => handlecountremovebtn(curr)}
+                  className="quntitybtn"
                 >
                   -
                 </button>{" "}
-                {count} <button onClick={() => setCount(count + 1)}>+</button>
+                {curr.count}{" "}
+                <button
+                  onClick={() => handlecountbtn(curr)}
+                  className="quntitybtn"
+                  style={{ backgroundColor: "rgb(239, 82, 82)" }}
+                >
+                  +
+                </button>
               </td>
 
               <td className="m-1 p-2">
-                <td>{curr.price}</td>
+                <td>{curr.count * (curr.price ? curr.price : 999)}</td>
               </td>
             </tr>
           </tbody>
@@ -100,7 +133,7 @@ export default function Cartpage() {
             {store.map((curr) => (
               <tr>
                 <td>{curr.title}</td>
-                <td>{curr.price}</td>
+                <td>{(curr.price ? curr.price : 999) * curr.count}</td>
               </tr>
             ))}
             <tr
@@ -116,7 +149,7 @@ export default function Cartpage() {
           </table>
 
           <button type="submit" class="btn btn-success mt-3">
-            Checkout Process
+            Process to Buy
           </button>
         </div>
       </div>
