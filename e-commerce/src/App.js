@@ -15,6 +15,7 @@ import About from "./Component/About";
 import Footer from "./Component/compo/Footer";
 import Cartpage from "./Component/compo/Cartpage";
 import Addresspage from "./Component/Addresspage";
+import Confirmpage from "./Component/Confirmpage";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
         <Route path="/addresspage" element={<Addresspage />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/cartpage" element={<Cartpage />} />
+        <Route path="/confirmpage" element={<Confirmpage />} />
       </Routes>
 
       <Footer />

@@ -1,8 +1,11 @@
 import { Radio } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
+
 import Select from "react-select";
 import "./Addresspage.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 export default function Addresspage() {
   const [userdata, setUserData] = useState({
     name: "",
@@ -13,17 +16,33 @@ export default function Addresspage() {
     pincode: "",
     locality: "",
   });
-  const url = "http://localhost:8083/orderConfirm";
+  const navgate = useNavigate();
+  const url = "http://localhost:8083/orderuser/orderConfirm";
   const handleclick = () => {
     console.log(userdata);
-
-    axios(url, {
+    const tokenvalue = JSON.parse(localStorage.getItem("tokenno"));
+    console.log(tokenvalue);
+    fetch(url, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-type": "application/json",
+        Authorization: `Barrer ${tokenvalue}`,
       },
       body: JSON.stringify(userdata),
-    });
+    })
+      .then((res) => {
+        console.log(res);
+        Swal.fire({
+          title: "Success!",
+          text: ` has been added to your cart.`,
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+        navgate("/confirmpage");
+      })
+      .catch((Err) => {
+        console.log(Err);
+      });
   };
 
   const handlechange = (e) => {
@@ -31,6 +50,8 @@ export default function Addresspage() {
 
     setUserData({ ...userdata, [name]: value });
   };
+
+
   return (
     <div>
       <h1>Delivery Address</h1>
@@ -86,17 +107,6 @@ export default function Addresspage() {
             name="landmark"
             value={userdata.landmark}
           />
-
-          <p>Address Type</p>
-          <div className="raido">
-            <span>
-              {" "}
-              <input type="radio" /> Home
-            </span>
-            <span>
-              <input type="radio" /> Work
-            </span>
-          </div>
 
           <button onClick={handleclick}>Order confirm</button>
         </div>

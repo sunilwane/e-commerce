@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./navmiddle.css";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ContextApi } from "../../ContextApi/Appcontext";
 export default function Cartpage() {
   const [store, setStore] = useState(() => {
     const savedItems = localStorage.getItem("cartData");
@@ -25,6 +26,9 @@ export default function Cartpage() {
   };
   const [totalprice, setTotalprice] = useState(0);
 
+  const { localstoragevalue } = useContext(ContextApi);
+  const storetoken = JSON.parse(localStorage.getItem("tokenno"));
+
   useEffect(() => {
     const storetemp = store.reduce(
       (previousValue, currentValue, currentIndex, array) => {
@@ -45,6 +49,14 @@ export default function Cartpage() {
 
   // useEffect(() => {}, [count]);
   // useEffect((loca) => {}, [curr.count]);
+  const navigate = useNavigate();
+  const handleclickbtn = () => {
+    storetoken ? navigate("/addresspage") : navigate("/signuppage");
+  };
+
+  // Initialize state
+
+
 
   return (
     <div className="cartpage">
@@ -129,7 +141,6 @@ export default function Cartpage() {
         </div>
         <div className="cartboxprice">
           <h5>Cart Totals</h5>
-
           <table className="pricetablecart">
             {store.map((curr) => (
               <tr>
@@ -148,12 +159,15 @@ export default function Cartpage() {
               <td>{totalprice}</td>
             </tr>
           </table>
-          <Link to="/addresspage">
-            {" "}
-            <button type="submit" class="btn btn-success mt-3">
-              Process to Buy
-            </button>
-          </Link>
+          {/* <Link to="/addresspage"> */}{" "}
+          <button
+            type="submit"
+            class="btn btn-success mt-3"
+            onClick={handleclickbtn}
+          >
+            Process to Buy
+          </button>
+          {/* </Link> */}
         </div>
       </div>
     </div>
