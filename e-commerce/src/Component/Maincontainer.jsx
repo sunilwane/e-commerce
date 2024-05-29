@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Format from "./Format.jsx/Format";
-import productdata from "./image/products.json";
+// import productdata from "./image/products.json";
+import productdata from "./image/productfinallist.json";
+
 import imagebook from "../images/books-7479152_1280.png";
 import videoimage from "../images/video01.png";
 import bookslist from "./image/Booklistfinal.json";
@@ -159,8 +161,9 @@ export default function Maincontainer() {
                 margin: "10px",
                 padding: "10px",
                 borderRadius: "9px",
-                backgroundColor: "#f5f5f5",
+                backgroundColor: "#fff",
               }}
+              className="cardmaincontainer"
             >
               {/* <h3>{curr.brand}</h3> */}
               <div className="boxcontainer">

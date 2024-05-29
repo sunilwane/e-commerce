@@ -14,6 +14,7 @@ import Navmiddle from "./Component/compo/Navmiddle";
 import About from "./Component/About";
 import Footer from "./Component/compo/Footer";
 import Cartpage from "./Component/compo/Cartpage";
+import Addresspage from "./Component/Addresspage";
 
 function App() {
   return (
@@ -29,7 +30,10 @@ function App() {
         <Route path="/payment/:id" element={<Payment />} />
         <Route path="/contactpage" element={<Contactpage />} />
         <Route path="/payment2/:id" element={<Payment2 />} />
+        <Route path="/signuppage" element={<Signinandup />} />
+        <Route path="/aboutpage" element={<About />} />
         <Route path="/maincontainer" element={<Maincontainer />} />
+        <Route path="/addresspage" element={<Addresspage />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/cartpage" element={<Cartpage />} />
       </Routes>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./navmiddle.css";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import { Link } from "react-router-dom";
 export default function Cartpage() {
   const [store, setStore] = useState(() => {
     const savedItems = localStorage.getItem("cartData");
@@ -147,10 +148,12 @@ export default function Cartpage() {
               <td>{totalprice}</td>
             </tr>
           </table>
-
-          <button type="submit" class="btn btn-success mt-3">
-            Process to Buy
-          </button>
+          <Link to="/addresspage">
+            {" "}
+            <button type="submit" class="btn btn-success mt-3">
+              Process to Buy
+            </button>
+          </Link>
         </div>
       </div>
     </div>

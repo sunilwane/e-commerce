@@ -2,6 +2,7 @@ const express = require("express");
 const { connections } = require("./db");
 const cors = require("cors");
 const { paymentModel } = require("./Model/userModel");
+const { orderData } = require("./Model/orderUserData");
 
 const app = express();
 app.use(express.json());
@@ -16,6 +17,13 @@ app.post("/payment", async (req, res) => {
   const user = new paymentModel(userdata);
   await user.save();
   res.send("data is send succefully");
+});
+
+app.post("/orderConfirm", async (req, res) => {
+  const userdata = req.body;
+  const user = new orderData(userdata);
+  await user.save();
+  res.send("order is confirmed");
 });
 app.listen(8083, async () => {
   console.log("server is listening.......");

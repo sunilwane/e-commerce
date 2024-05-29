@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { database } from "./FirebaseConfig";
-import { signOut } from "firebase/auth";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Select from "react-select";
 import "./home.css";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LocalPostOfficeIcon from "@mui/icons-material/LocalPostOffice";
-import InfoIcon from "@mui/icons-material/Info";
+import LoginIcon from "@mui/icons-material/Login";
 import HomeIcon from "@mui/icons-material/Home";
-import Maincontainer from "./Maincontainer";
-import Cart from "./Cart";
-import Navmiddle from "./compo/Navmiddle";
+
+const options = [
+  { value: "chocolate", label: "Chocolate" },
+  { value: "strawberry", label: "Strawberry" },
+  { value: "vanilla", label: "Vanilla" },
+];
 export default function Navbar() {
   let userdata1 = JSON.parse(localStorage.getItem("userdata")) || [];
   const [data, setData] = useState(userdata1.length);
@@ -17,18 +19,11 @@ export default function Navbar() {
     setData(userdata1.length);
   }, [userdata1]);
 
-  const history = useNavigate();
-  const handlechange = () => {
-    signOut(database).then((val) => {
-      history("/");
-    });
+  const [selectedOption, setSelectedOption] = useState(null);
+  const handleChange = (option) => {
+    setSelectedOption(option);
+    console.log(`Option selected:`, option);
   };
-  const handlecart = () => {
-    // setContainer(!container);
-    // setCart(!cart);
-    history("/maincontainer");
-  };
-
   return (
     <>
       <div>
@@ -36,30 +31,25 @@ export default function Navbar() {
           <h4 style={{ color: "#303030", padding: "10px" }}>
             ShopEasy And E-nalanda
           </h4>
-          <div className="  mt-3">
-            <form className="d-flex" role="search">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              {/* <button className="btn btn-outline-success" type="submit">
-              Search
-            </button> */}
-              <button type="submit" class="btn btn-success">
-                Search
-              </button>
-            </form>
-          </div>
+
+          <Select
+            className="selectdata"
+            value={selectedOption}
+            onChange={handleChange}
+            options={options}
+          />
           <ul>
-            <li onClick={handlecart}>
-              <HomeIcon /> Home
-            </li>
             <li>
-              {" "}
-              <InfoIcon /> About
+              <Link to="/maincontainer" className="contacttext">
+                {" "}
+                <HomeIcon /> Home
+              </Link>
             </li>
+            {/* <li>
+              <Link to="/aboutpage" className="contacttext">
+                <InfoIcon /> About
+              </Link>
+            </li> */}
             <li>
               <Link to="/contactpage" className="contacttext">
                 <LocalPostOfficeIcon /> Contact
@@ -70,6 +60,12 @@ export default function Navbar() {
                 <ShoppingCartIcon />
                 {/* <span className="actualdata"> {data}</span> */}
                 Cart
+              </Link>
+            </li>
+
+            <li>
+              <Link to="/signuppage" className="contacttext">
+                <LoginIcon /> Login
               </Link>
             </li>
 
